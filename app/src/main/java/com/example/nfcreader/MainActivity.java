@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,8 +21,8 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private NfcAdapter nfcAdapter;
-
     private TextView nfcTextView;
+    private ImageView create_contact_IV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
             showNoNfcDialog();
             return;
         }
-        nfcTextView = findViewById(R.id.nfcTextView);
-        nfcTextView.setOnClickListener(new View.OnClickListener() {
+        create_contact_IV = findViewById(R.id.create_contact_IV);
+        create_contact_IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddContactActivity.class);
