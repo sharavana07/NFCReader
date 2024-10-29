@@ -13,8 +13,8 @@ import java.util.List;
 @Dao
 public interface NfcDataDao {
     // User Data Operations
-    @Insert
-    void insertUserData(NFCUserData userData);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long insertUserData(NFCUserData userData); // Change return type to long
 
     @Query("SELECT * FROM nfc_user_data WHERE tagID = :serialNumber")
     NFCUserData getUserDataBySerial(String serialNumber);
@@ -23,7 +23,7 @@ public interface NfcDataDao {
     @Insert
     void insertLog(NfcLogs log);
 
-    @Query("SELECT * FROM nfc_logs ORDER BY timestamp DESC")
-    List<NfcLogs> getAllLogs();
+    @Query("SELECT * FROM nfc_logs ORDER BY timeStamp DESC") // Adjust the query as needed
+    List<NfcLogs> getAllLogs(); // Ensure this method exists
 }
 
