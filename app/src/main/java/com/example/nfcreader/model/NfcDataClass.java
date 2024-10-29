@@ -1,4 +1,4 @@
-package com.example.nfcreader;
+package com.example.nfcreader.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

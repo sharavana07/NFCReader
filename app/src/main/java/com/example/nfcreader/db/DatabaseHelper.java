@@ -1,4 +1,4 @@
-package com.example.nfcreader;
+package com.example.nfcreader.db;
 
 import android.content.ContentValues;
 import android.content.Context;
