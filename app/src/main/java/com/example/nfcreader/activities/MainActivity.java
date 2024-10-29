@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcreader.model.NFCUserData;
 import com.example.nfcreader.model.NfcLogs;
 import com.example.nfcreader.db.NfcDatabase;
 import com.example.nfcreader.R;
@@ -105,20 +106,35 @@ public class MainActivity extends AppCompatActivity {
     private void resolveIntent(Intent intent) {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-            String serialNumber = (id != null) ? bytesToHex(id) : "Unknown";
-            addLogToDB(serialNumber);
+            String tagId = (id != null) ? bytesToHex(id) : "Unknown";
+            getUserbyTagId(tagId);
         }
     }
 
-    private void addLogToDB(String serialNumber) {
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        NfcLogs nfcData = new NfcLogs(UUID.randomUUID().toString(),serialNumber, timeStamp);
-
+    private void getUserbyTagId(String tagId) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             NfcDatabase db = NfcDatabase.getDatabase(getApplicationContext());
-            db.nfcDataDao().insertLog(nfcData);
+            NFCUserData nfcUserData = db.nfcDataDao().getUserDataByTagId(tagId);
+
+            if (nfcUserData != null) {
+                addLogToDB(nfcUserData);
+
+            } else {
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Not a registered User", Toast.LENGTH_SHORT).show());
+            }
         });
+    }
+
+    private void addLogToDB(NFCUserData nfcUserData) {
+
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        NfcLogs nfcData = new NfcLogs(UUID.randomUUID().toString(),nfcUserData.getTagID(), nfcUserData.getName(), nfcUserData.getEmail(), nfcUserData.getPhone(), timeStamp);
+
+        NfcDatabase db = NfcDatabase.getDatabase(getApplicationContext());
+        db.nfcDataDao().insertLog(nfcData);
+
     }
 
     private String bytesToHex(byte[] bytes) {

@@ -56,6 +56,18 @@ public class LogsActivity extends AppCompatActivity {
         headerTagID.setPadding(16, 16, 16, 16);
         headerRow.addView(headerTagID);
 
+        headerPKey.setText("Name");
+        headerPKey.setPadding(16, 16, 16, 16);
+        headerRow.addView(headerPKey);
+
+        headerPKey.setText("E-mail");
+        headerPKey.setPadding(16, 16, 16, 16);
+        headerRow.addView(headerPKey);
+
+        headerPKey.setText("Phone Number");
+        headerPKey.setPadding(16, 16, 16, 16);
+        headerRow.addView(headerPKey);
+
         TextView headerTimeStamp = new TextView(this);
         headerTimeStamp.setText("Timestamp");
         headerTimeStamp.setPadding(16, 16, 16, 16);

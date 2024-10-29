@@ -17,7 +17,7 @@ public interface NfcDataDao {
     long insertUserData(NFCUserData userData); // Change return type to long
 
     @Query("SELECT * FROM nfc_user_data WHERE tagID = :serialNumber")
-    NFCUserData getUserDataBySerial(String serialNumber);
+    NFCUserData getUserDataByTagId(String serialNumber);
 
     // Log Operations
     @Insert(onConflict = OnConflictStrategy.IGNORE)  // Modify the conflict strategy as needed
