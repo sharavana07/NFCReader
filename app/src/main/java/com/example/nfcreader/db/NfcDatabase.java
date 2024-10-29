@@ -5,10 +5,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.nfcreader.model.NfcDataClass;
+import com.example.nfcreader.model.NFCUserData;
+import com.example.nfcreader.model.NfcLogs;
 
-@Database(entities = {NfcDataClass.class}, version = 1)
+@Database(entities = {NFCUserData.class, NfcLogs.class}, version = 1)
 public abstract class NfcDatabase extends RoomDatabase {
+
     public abstract NfcDataDao nfcDataDao();
 
     private static volatile NfcDatabase INSTANCE;

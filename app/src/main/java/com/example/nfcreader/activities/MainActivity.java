@@ -7,26 +7,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nfcreader.model.NfcDataClass;
+import com.example.nfcreader.model.NfcLogs;
 import com.example.nfcreader.db.NfcDatabase;
 import com.example.nfcreader.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private NfcAdapter nfcAdapter;
-    private ImageView createContactIV;
+    private ImageView addUserIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        createContactIV = findViewById(R.id.create_contact_IV);
-        createContactIV.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddContactActivity.class);
+        addUserIV = findViewById(R.id.add_user_IV);
+        addUserIV.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddUserActivity.class);
             startActivity(intent);
         });
 
@@ -97,18 +95,18 @@ public class MainActivity extends AppCompatActivity {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
             String serialNumber = (id != null) ? bytesToHex(id) : "Unknown";
-            saveNfcData(serialNumber);
+            addLogToDB(serialNumber);
         }
     }
 
-    private void saveNfcData(String serialNumber) {
+    private void addLogToDB(String serialNumber) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        NfcDataClass nfcData = new NfcDataClass(serialNumber, timeStamp);
+        NfcLogs nfcData = new NfcLogs(serialNumber, timeStamp);
 
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             NfcDatabase db = NfcDatabase.getDatabase(getApplicationContext());
-            db.nfcDataDao().insertNfcData(nfcData);
+            db.nfcDataDao().insertLog(nfcData);
         });
     }
 

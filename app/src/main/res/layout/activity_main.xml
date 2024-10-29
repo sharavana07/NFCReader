@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/create_contact_IV"
+        android:id="@+id/add_user_IV"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -15,8 +15,8 @@
         android:id="@+id/nfcTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/create_contact_IV"
+        android:layout_below="@+id/add_user_IV"
         android:gravity="center"
-        android:text="Create a contact"
+        android:text="Tap NFC to login"
         android:textSize="24sp" />
 </RelativeLayout>

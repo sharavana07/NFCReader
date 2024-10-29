@@ -17,7 +17,7 @@
         android:theme="@style/Theme.NFCReader"
         tools:targetApi="31">
         <activity
-            android:name=".activities.AddContactActivity"
+            android:name=".activities.AddUserActivity"
             android:alwaysRetainTaskState="true"
             android:exported="true"
             android:launchMode="singleTop">
