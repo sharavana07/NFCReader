@@ -6,6 +6,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,8 +24,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
+
     private NfcAdapter nfcAdapter;
+
     private ImageView addUserIV;
+    private Button logs_BTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         addUserIV = findViewById(R.id.add_user_IV);
         addUserIV.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddUserActivity.class);
+            startActivity(intent);
+        });
+
+        logs_BTN = findViewById(R.id.logs_BTN);
+        logs_BTN.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LogsActivity.class);
             startActivity(intent);
         });
 

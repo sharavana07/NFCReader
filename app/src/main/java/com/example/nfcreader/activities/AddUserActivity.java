@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -85,8 +86,17 @@ public class AddUserActivity extends AppCompatActivity {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             NfcDatabase db = NfcDatabase.getDatabase(getApplicationContext());
-            db.nfcDataDao().insertUserData(nfcUserData);
+            long result = db.nfcDataDao().insertUserData(nfcUserData);
+            if (result == -1) {
+                // The insert was ignored due to a conflict
+                Log.d("NfcDatabase", "Insert ignored: A user with the same primary key already exists.");
+                Toast.makeText(this, "User creation failed. NFC tag is already added to a user", Toast.LENGTH_SHORT).show();
+            } else {
+                // The insert was successful
+                Log.d("NfcDatabase", "User data inserted with row ID: " + result);
+            }
         });
+
     }
 
     private boolean isValidEmail(String email) {
