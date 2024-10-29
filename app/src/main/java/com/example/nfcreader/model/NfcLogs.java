@@ -7,12 +7,15 @@ import java.util.UUID;
 
 @Entity(tableName = "nfc_logs")
 public class NfcLogs {
+
     @PrimaryKey
     @NonNull
+    private String pKey;
     private String tagID;
     private String timeStamp;
 
     public NfcLogs(String tagID, String timeStamp) {
+        this.pKey = UUID.randomUUID().toString();
         this.tagID = tagID;
         this.timeStamp = timeStamp;
     }
@@ -35,4 +38,12 @@ public class NfcLogs {
     }
 
 
+    @NonNull
+    public String getpKey() {
+        return pKey;
+    }
+
+    public void setpKey(@NonNull String pKey) {
+        this.pKey = pKey;
+    }
 }

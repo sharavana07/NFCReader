@@ -5,6 +5,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcreader.R;
@@ -39,37 +40,53 @@ public class LogsActivity extends AppCompatActivity {
     }
 
     private void populateTable(List<NfcLogs> logList) {
-        // Clear existing rows if any
         logsTableLayout.removeAllViews();
 
         // Add table headers
         TableRow headerRow = new TableRow(this);
+
+        TextView headerPKey = new TextView(this);
+        headerPKey.setText("PKey");
+        headerPKey.setPadding(16, 16, 16, 16);
+        headerRow.addView(headerPKey);
+
         TextView headerTagID = new TextView(this);
         headerTagID.setText("Tag ID");
-        headerTagID.setPadding(8, 8, 8, 8);
+        headerTagID.setPadding(16, 16, 16, 16);
         headerRow.addView(headerTagID);
 
         TextView headerTimeStamp = new TextView(this);
         headerTimeStamp.setText("Timestamp");
-        headerTimeStamp.setPadding(8, 8, 8, 8);
+        headerTimeStamp.setPadding(16, 16, 16, 16);
         headerRow.addView(headerTimeStamp);
 
         logsTableLayout.addView(headerRow);
 
         // Add log entries
         for (NfcLogs log : logList) {
-            TableRow row = new TableRow(this);
-            TextView tagIDTextView = new TextView(this);
-            tagIDTextView.setText(log.getTagID());
-            tagIDTextView.setPadding(8, 8, 8, 8);
-            row.addView(tagIDTextView);
-
-            TextView timeStampTextView = new TextView(this);
-            timeStampTextView.setText(log.getTimeStamp());
-            timeStampTextView.setPadding(8, 8, 8, 8);
-            row.addView(timeStampTextView);
+            TableRow row = getTableRow(log);
 
             logsTableLayout.addView(row);
         }
+    }
+
+    private @NonNull TableRow getTableRow(NfcLogs log) {
+        TableRow row = new TableRow(this);
+
+        TextView pKeyTextView = new TextView(this);
+        pKeyTextView.setText(log.getpKey());
+        pKeyTextView.setPadding(16, 16, 16, 16);
+        row.addView(pKeyTextView);
+
+        TextView tagIDTextView = new TextView(this);
+        tagIDTextView.setText(log.getTagID());
+        tagIDTextView.setPadding(16, 16, 16, 16);
+        row.addView(tagIDTextView);
+
+        TextView timeStampTextView = new TextView(this);
+        timeStampTextView.setText(log.getTimeStamp());
+        timeStampTextView.setPadding(16, 16, 16, 16);
+        row.addView(timeStampTextView);
+        return row;
     }
 }
