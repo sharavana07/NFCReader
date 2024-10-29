@@ -10,12 +10,13 @@ public class NfcLogs {
 
     @PrimaryKey
     @NonNull
-    private String pKey;
+    private String primeKey;
+
     private String tagID;
     private String timeStamp;
 
-    public NfcLogs(String tagID, String timeStamp) {
-        this.pKey = UUID.randomUUID().toString();
+    public NfcLogs(String primeKey, String tagID, String timeStamp) {
+        this.primeKey = primeKey;
         this.tagID = tagID;
         this.timeStamp = timeStamp;
     }
@@ -39,11 +40,11 @@ public class NfcLogs {
 
 
     @NonNull
-    public String getpKey() {
-        return pKey;
+    public String getPrimeKey() {
+        return primeKey;
     }
 
-    public void setpKey(@NonNull String pKey) {
-        this.pKey = pKey;
+    public void setPrimeKey(@NonNull String primeKey) {
+        this.primeKey = primeKey;
     }
 }

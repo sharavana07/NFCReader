@@ -40,6 +40,7 @@ public class LogsActivity extends AppCompatActivity {
     }
 
     private void populateTable(List<NfcLogs> logList) {
+        // Clear existing rows if any
         logsTableLayout.removeAllViews();
 
         // Add table headers
@@ -74,7 +75,7 @@ public class LogsActivity extends AppCompatActivity {
         TableRow row = new TableRow(this);
 
         TextView pKeyTextView = new TextView(this);
-        pKeyTextView.setText(log.getpKey());
+        pKeyTextView.setText(log.getPrimeKey());
         pKeyTextView.setPadding(16, 16, 16, 16);
         row.addView(pKeyTextView);
 

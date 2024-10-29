@@ -20,9 +20,9 @@ public interface NfcDataDao {
     NFCUserData getUserDataBySerial(String serialNumber);
 
     // Log Operations
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)  // Modify the conflict strategy as needed
     void insertLog(NfcLogs log);
-
+    
     @Query("SELECT * FROM nfc_logs ORDER BY timeStamp DESC") // Adjust the query as needed
     List<NfcLogs> getAllLogs(); // Ensure this method exists
 }

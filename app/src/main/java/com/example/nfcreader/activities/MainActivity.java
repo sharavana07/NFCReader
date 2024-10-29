@@ -20,6 +20,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addLogToDB(String serialNumber) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        NfcLogs nfcData = new NfcLogs(serialNumber, timeStamp);
+        NfcLogs nfcData = new NfcLogs(UUID.randomUUID().toString(),serialNumber, timeStamp);
 
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
